@@ -29,6 +29,7 @@ impl<IN, OUT, E> Bq25185<IN, OUT>
 where
     IN: InputPin<Error = E>,
     OUT: OutputPin<Error = E>,
+    E: embedded_hal::digital::Error,
 {
     /// Creates a new Bq25185 struct. Required pins are stat1 and stat2. Optionally accepts a charge_enable pin.
     pub fn new(stat1: IN, stat2: IN, charge_enable: Option<OUT>) -> Self {

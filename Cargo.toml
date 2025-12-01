@@ -1,7 +1,10 @@
 [package]
 name = "bq25185"
 version = "0.1.0"
+authors = ["acedogblast"]
 edition = "2024"
+description = "A basic and simple BQ25185 battey charging IC driver"
+license = "MIT"
 
 [dependencies]
 embedded-hal = "1.0.0"
