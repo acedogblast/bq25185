@@ -20,7 +20,7 @@ Add this to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-bq25185 = "=0.1.0"
+bq25185 = "=0.1.1"
 ```
 
 ### Example on ESP32 using esp_hal
