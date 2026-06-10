@@ -1,32 +1,12 @@
-# TI BQ25185 Battery Charger Driver
-
-A basic and simple platform-agnostic driver for the Texas Instruments BQ25185 battery charger IC using [`embedded-hal`] traits.  
-Designed for use in `no_std` embedded environments.
-
----
-
-## Features
-
-- Supports reading the stat1 and stat2 digital pins and returns a `Status` emum.
-- Optional charge enable pin managment.
-- Compatible with any platform that implements [`embedded-hal`] traits.
-- `no_std` support.
-
----
-
-## Usage
-
-Add this to your `Cargo.toml`:
-
-```toml
-[dependencies]
-bq25185 = "=0.1.1"
-```
-
-### Example on ESP32 using esp_hal
-```rs
 #![no_std]
 #![no_main]
+#![deny(
+    clippy::mem_forget,
+    reason = "mem::forget is generally not safe to do with esp_hal types, especially those \
+    holding buffers for the duration of a data transfer."
+)]
+#![deny(clippy::large_stack_frames)]
+
 use bq25185::driver::Bq25185;
 use bq25185::Status;
 use defmt::info;
@@ -39,6 +19,10 @@ use esp_println as _;
 
 esp_bootloader_esp_idf::esp_app_desc!();
 
+#[allow(
+    clippy::large_stack_frames,
+    reason = "it's not unusual to allocate larger buffers etc. in main"
+)]
 #[main]
 fn main() -> ! {
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
@@ -68,4 +52,3 @@ fn main() -> ! {
         while delay_start.elapsed() < Duration::from_secs(10) {}
     }
 }
-```
